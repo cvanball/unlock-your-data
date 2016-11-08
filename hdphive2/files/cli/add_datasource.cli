@@ -1,0 +1,2 @@
+data-source add --name=HDPHive2DS --jndi-name=java:/HDPHive2 --connection-url=jdbc:hive2://localhost:10000/default --driver-name=hdp-sandbox --user-name=maria_dev --password=maria_dev
+data-source enable --name=HDPHive2DS

@@ -1,0 +1,1 @@
+/subsystem=datasources/jdbc-driver=hdp-sandbox:add(driver-name=hdp-sandbox,driver-module-name=org.apache.hadoop.hive2,driver-class-name=org.apache.hive.jdbc.HiveDriver)

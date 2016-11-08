@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.0" name="org.apache.hadoop.hive2">
+  <resources>
+    <resource-root path="hadoop-auth-2.7.3.2.5.0.0-1245.jar"/>
+    <resource-root path="hadoop-common-2.7.3.2.5.0.0-1245.jar"/>
+    <resource-root path="hive-jdbc-1.2.1000.2.5.0.0-1245-standalone.jar"/>
+  </resources>
+
+  <dependencies>
+    <module name="org.slf4j"/>
+    <module name="org.apache.commons.logging"/>
+    <module name="javax.api"/>
+    <module name="javax.resource.api"/>
+  </dependencies>
+</module>
