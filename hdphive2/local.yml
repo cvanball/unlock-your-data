@@ -1,10 +1,10 @@
-- name: Configure local JBoss Data Virtualization with HDP Hive JDBC driver 
+- name: Configure local JBoss Data Virtualization with HDP Hive2 JDBC driver 
   hosts: localhost
   connection: local
   tasks: 
-    - name: Create JBoss module directory for the HDP Hive2 driver
+    - name: Create JBoss module directory for the HDP Hive2 JDBC driver
       file: path="{{ jboss_home }}/modules/system/layers/dv/org/apache/hadoop/hive2/main" state=directory
-    - name: Download HDP Hive JDBC jars
+    - name: Download HDP Hive JDBC jar files
       get_url:
         url: "{{ item }}"
         dest: "{{ jboss_home }}/modules/system/layers/dv/org/apache/hadoop/hive2/main"
@@ -12,15 +12,15 @@
         - "{{ hadoop_auth_url }}"
         - "{{ hadoop_common_url }}"
         - "{{ hadoop_jdbc_standalone_url }}"
-    - name: Copy module.xml into {{ jboss_home }}
+    - name: Copy module.xml into JBoss modules directory
       copy: 
         src: "{{ xml_dir }}/module.xml"
         dest: "{{ jboss_home }}/modules/system/layers/dv/org/apache/hadoop/hive2/main"
     - name: "Execute Management CLI file(s)"
-      shell: 'bash -c "nohup {{ jboss_home }}/bin/standalone.sh -c {{ jboss_eap_instance_standalone_file }} -Djboss.socket.binding.port-offset={{ jboss_eap_instance_port_offset }} -Djboss.management.native.port={{ jboss_eap_instance_cli_default_port }} -Djboss.server.base.dir={{ jboss_eap_instance_dir }} --admin-only & " && sleep 10 && {{ jboss_home }}/bin/jboss-cli.sh -c --controller=127.0.0.1:{{ jboss_eap_instance_cli_port }} --file="{{ cli_dir }}/{{ item | basename }}" && pkill -TERM -f "java(.*){{ jboss_eap_instance_dir }}"'
+      shell: 'bash -c "nohup {{ jboss_home }}/bin/standalone.sh -c {{ jboss_eap_instance_standalone_file }} -Djboss.socket.binding.port-offset={{ jboss_eap_instance_port_offset }} -Djboss.management.native.port={{ jboss_eap_instance_cli_default_port }} -Djboss.server.base.dir={{ jboss_eap_instance_dir }} --admin-only & " && sleep {{ cli_timeout }} && {{ jboss_home }}/bin/jboss-cli.sh -c --controller=127.0.0.1:{{ jboss_eap_instance_cli_port }} --file="{{ cli_dir }}/{{ item | basename }}" && pkill -TERM -f "java(.*){{ jboss_eap_instance_dir }}"'
       with_items: "{{ cli_list }}"
       ignore_errors: no
-      register: cli_result
+      
     
       
 

@@ -27,3 +27,4 @@ hadoop_jdbc_standalone_url: "http://repo.hortonworks.com/content/repositories/re
 cli_dir: "{{ playbook_dir }}/files/cli"
 xml_dir: "{{ playbook_dir }}/files/xml"
 cli_list: { "add_driver.cli","add_datasource.cli" }
+cli_timeout: 15
