@@ -4,8 +4,8 @@ This project is an example showing how to configure a Red Hat JBoss Data Virtual
 
 ### Prerequisites
 
-1) Install [Ansible](http://www.ansible.com)
-2) Install [Red Hat JBoss Data Virtualization](http://developers.redhat.com/products/datavirt/get-started/#Step1)
+1. Install [Ansible](http://www.ansible.com)
+2. Install [Red Hat JBoss Data Virtualization](http://developers.redhat.com/products/datavirt/get-started/#Step1)
 
 ### Available playbooks
 
