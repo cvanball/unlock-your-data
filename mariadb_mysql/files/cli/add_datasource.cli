@@ -1,0 +1,2 @@
+data-source add --name=UnlockData_MySQL_DS --jndi-name=java:/UnlockData_MySQL_DS --connection-url=jdbc:mysql://localhost:3306/unlockdata --driver-name=mysql --user-name=mysql_dev --password=mysql_dev
+data-source enable --name=UnlockData_MySQL_DS
