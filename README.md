@@ -10,7 +10,8 @@ This project is an example showing how to configure a Red Hat JBoss Data Virtual
 ### Available playbooks
 
 * [Hortonworks Hive JDBC](https://github.com/cvanball/unlock-your-data/tree/master/hdphive2)
+* [MariaDB/MySQL JDBC](https://github.com/cvanball/unlock-your-data/tree/master/mariadb_mysql)
 
-> Please edit the file hdphive2/group_vars/all.yml and change the variable jboss_home to point to the home directory of your Red Hat JBoss Data Virtualization environment. 
+> Please edit the file */group_vars/all.yml and change the variable jboss_home to point to the home directory of your Red Hat JBoss Data Virtualization environment. 
 
 
