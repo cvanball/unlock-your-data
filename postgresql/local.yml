@@ -1,0 +1,19 @@
+- name: Configure local JBoss Data Virtualization with PostgreSQL JDBC driver 
+  hosts: localhost
+  connection: local
+  tasks: 
+    - name: Create JBoss module directory for the PostgreSQL JDBC driver
+      file: path="{{ module_path }}" state=directory
+    - name: Download the PostgreSQL JDBC jar file
+      get_url:
+        url: "{{ jdbc_jar_url }}"
+        dest: "{{ module_path }}"
+    - name: Copy module.xml into JBoss modules directory
+      copy: 
+        src: "{{ xml_dir }}/module.xml"
+        dest: "{{ module_path }}"
+    - name: "Execute Management CLI file(s)"
+      shell: 'bash -c "nohup {{ jboss_home }}/bin/standalone.sh -c {{ jboss_eap_instance_standalone_file }} -Djboss.socket.binding.port-offset={{ jboss_eap_instance_port_offset }} -Djboss.management.native.port={{ jboss_eap_instance_cli_default_port }} -Djboss.server.base.dir={{ jboss_eap_instance_dir }} --admin-only & " && sleep {{ cli_timeout }} && {{ jboss_home }}/bin/jboss-cli.sh -c --controller=127.0.0.1:{{ jboss_eap_instance_cli_port }} --file="{{ cli_dir }}/{{ item | basename }}" && pkill -TERM -f "java(.*){{ jboss_eap_instance_dir }}"'
+      with_items: "{{ cli_list }}"
+      ignore_errors: no
+      

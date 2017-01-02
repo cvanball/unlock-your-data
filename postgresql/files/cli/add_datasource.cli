@@ -1,0 +1,2 @@
+data-source add --name=UnlockData_PostgreSQL_DS --jndi-name=java:/UnlockData_PostgreSQL_DS --connection-url=jdbc:postgresql://localhost:5432/unlockdata --driver-name=postgresql --user-name=postgresql_dev --password=postgresql_dev
+data-source enable --name=UnlockData_PostgreSQL_DS
