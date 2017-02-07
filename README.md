@@ -9,9 +9,9 @@ This project is an example showing how to configure a Red Hat JBoss Data Virtual
 
 ### Available playbooks
 
-* [Microsoft Excel](https://github.com/cvanball/unlock-your-data/tree/master/msexcel)
 * [Hortonworks Hive JDBC](https://github.com/cvanball/unlock-your-data/tree/master/hdphive2)
 * [MariaDB/MySQL JDBC](https://github.com/cvanball/unlock-your-data/tree/master/mariadb_mysql)
+* [Microsoft Excel](https://github.com/cvanball/unlock-your-data/tree/master/msexcel)
 * [PostgreSQL JDBC](https://github.com/cvanball/unlock-your-data/tree/master/postgresql)
 
 > Please edit the file */group_vars/all.yml and change the variable jboss_home to point to the home directory of your Red Hat JBoss Data Virtualization environment. 
