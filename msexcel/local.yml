@@ -1,0 +1,9 @@
+- name: Configure local JBoss Data Virtualization to connect to Excel spreadsheets 
+  hosts: localhost
+  connection: local
+  tasks: 
+    - name: "Execute Management CLI file(s)"
+      shell: 'bash -c "nohup {{ jboss_home }}/bin/standalone.sh -c {{ jboss_eap_instance_standalone_file }} -Djboss.socket.binding.port-offset={{ jboss_eap_instance_port_offset }} -Djboss.management.native.port={{ jboss_eap_instance_cli_default_port }} -Djboss.server.base.dir={{ jboss_eap_instance_dir }} --admin-only & " && sleep {{ cli_timeout }} && {{ jboss_home }}/bin/jboss-cli.sh -c --controller=127.0.0.1:{{ jboss_eap_instance_cli_port }} --file="{{ cli_dir }}/{{ item | basename }}" && pkill -TERM -f "java(.*){{ jboss_eap_instance_dir }}"'
+      with_items: "{{ cli_list }}"
+      ignore_errors: no
+      

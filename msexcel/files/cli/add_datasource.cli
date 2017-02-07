@@ -1,0 +1,4 @@
+/subsystem=resource-adapters/resource-adapter=file/connection-definitions=UnlockData_MSExcel_DS:add(jndi-name=java:/UnlockData_MSExcel_DS, class-name=org.teiid.resource.adapter.file.FileManagedConnectionFactory, enabled=true, use-java-context=true)
+/subsystem=resource-adapters/resource-adapter=file/connection-definitions=UnlockData_MSExcel_DS/config-properties=ParentDirectory:add(value=/Users/mcouliba/Documents/_SOURCE_CODE/unlock-your-data/msexcel/data)
+/subsystem=resource-adapters/resource-adapter=file/connection-definitions=UnlockData_MSExcel_DS/config-properties=AllowParentPaths:add(value=true)
+/subsystem=resource-adapters/resource-adapter=file:activate
