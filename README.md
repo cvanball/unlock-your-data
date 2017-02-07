@@ -9,6 +9,7 @@ This project is an example showing how to configure a Red Hat JBoss Data Virtual
 
 ### Available playbooks
 
+* [Microsoft Excel](https://github.com/cvanball/unlock-your-data/tree/master/msexcel)
 * [Hortonworks Hive JDBC](https://github.com/cvanball/unlock-your-data/tree/master/hdphive2)
 * [MariaDB/MySQL JDBC](https://github.com/cvanball/unlock-your-data/tree/master/mariadb_mysql)
 * [PostgreSQL JDBC](https://github.com/cvanball/unlock-your-data/tree/master/postgresql)
