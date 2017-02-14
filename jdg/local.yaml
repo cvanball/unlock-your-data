@@ -1,0 +1,41 @@
+- name: Unlock your data with Red Hat JBoss Data Virtualization using Red Hat JBoss Data Grid as datasource
+  hosts: localhost
+  connection: local
+  tasks: 
+    - name: "Install JBoss Data Grid 6.6.0"
+      unarchive: 
+        src: binaries/jboss-datagrid-6.6.0-server.zip
+        dest: "{{ install_home }}"
+    - name: "Install Red Hat JBoss Data Grid 6.6.1 Server Update"
+      shell: 'bash -c "{{ jdg_home }}/bin/cli.sh --file={{ cli_dir }}/patch_jdg.cli"'
+      ignore_errors: no
+    - name: "Install Red Hat JBoss Data Virtualization 6.3"
+      shell: 'bash -c "java -jar binaries/jboss-dv-6.3.0-1-installer.jar {{ xml_dir }}/dv63_install.xml"'
+      ignore_errors: no
+    - name: "Install Red Hat JBoss Data Virtualization Server 6.3.3 Update"
+      shell: 'bash -c "java -jar binaries/jboss-dv-6.3.3-patch.jar --server {{ jboss_home }} --update jboss-dv"'
+      ignore_errors: yes
+    - name: "Unzip Red Hat JBoss Data Grid Hot Rod Java Client Module"
+      unarchive: 
+        src: "binaries/jboss-datagrid-6.6.1-eap-modules-remote-java-client.zip"
+        dest: "binaries/"
+    - name: "Install the Red Hat JBoss Data Grid Hot Rod Java Client Module into the JDV server"
+      copy:
+        src: "binaries/jboss-datagrid-6.6.1-eap-modules-remote-java-client/modules"
+        dest: "{{ jboss_home }}"
+    - name: "Execute JDV Management CLI file(s)"
+      shell: 'bash -c "nohup {{ jboss_home }}/bin/standalone.sh -c {{ jboss_eap_instance_standalone_file }} -Djboss.socket.binding.port-offset={{ jboss_eap_instance_port_offset }} -Djboss.management.native.port={{ jboss_eap_instance_cli_default_port }} -Djboss.server.base.dir={{ jboss_eap_instance_dir }} --admin-only & " && sleep {{ cli_timeout }} && {{ jboss_home }}/bin/jboss-cli.sh -c --controller=127.0.0.1:{{ jboss_eap_instance_cli_port }} --file="{{ cli_dir }}/{{ item | basename }}" && pkill -TERM -f "java(.*){{ jboss_eap_instance_dir }}"'
+      with_items: "{{ jdv_cli_list }}"
+      ignore_errors: no
+    - name: "Execute JDG Management CLI file(s)"
+      shell: 'bash -c "nohup {{ jdg_home }}/bin/standalone.sh -c {{ jdg_instance_standalone_file }} -Djboss.socket.binding.port-offset={{ jdg_instance_port_offset }} -Djboss.management.native.port={{ jdg_instance_cli_default_port }} -Djboss.server.base.dir={{ jdg_instance_dir }} --admin-only & " && sleep {{ cli_timeout }} && {{ jdg_home }}/bin/cli.sh --connect=127.0.0.1:{{ jdg_instance_cli_port }} --file="{{ cli_dir }}/{{ item | basename }}" && pkill -TERM -f "java(.*){{ jdg_instance_dir }}"'
+      with_items: "{{ jdg_cli_list }}"
+      ignore_errors: no
+    - name: "Unzip JDG Product schema Module in the JDV environment"
+      unarchive:
+        src: "binaries/Product_JDG_Module.zip"
+        dest: "{{ jboss_home }}"
+    - name: "Copy module.xml including module to Product POJO to JDG Resource Adapter"
+      copy:
+        src: "{{ xml_dir }}/module.xml"
+        dest: "{{ jboss_home }}/modules/system/layers/dv/org/jboss/teiid/resource-adapter/infinispan/dsl/main"
