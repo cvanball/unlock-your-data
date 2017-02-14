@@ -14,7 +14,7 @@
       ignore_errors: no
     - name: "Install Red Hat JBoss Data Virtualization Server 6.3.3 Update"
       shell: 'bash -c "java -jar binaries/jboss-dv-6.3.3-patch.jar --server {{ jboss_home }} --update jboss-dv"'
-      ignore_errors: yes
+      ignore_errors: no
     - name: "Unzip Red Hat JBoss Data Grid Hot Rod Java Client Module"
       unarchive: 
         src: "binaries/jboss-datagrid-6.6.1-eap-modules-remote-java-client.zip"
