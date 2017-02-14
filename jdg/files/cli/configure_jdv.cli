@@ -2,7 +2,7 @@ batch
 /subsystem=teiid/translator=infinispan-cache-dsl:add(module=org.jboss.teiid.translator.infinispan.dsl)
 /subsystem=resource-adapters/resource-adapter=productRA:add(module=org.jboss.teiid.resource-adapter.infinispan.dsl)
 /subsystem=resource-adapters/resource-adapter=productRA/connection-definitions=productDS:add(jndi-name="java:/productDS", class-name="org.teiid.resource.adapter.infinispan.dsl.InfinispanManagedConnectionFactory", pool-name="productDS",enabled="true", use-java-context="true")
-/subsystem=resource-adapters/resource-adapter=productRA/connection-definitions=productDS/config-properties=CacheTypeMap:add(value="productCache:org.teiid.jdg.pojo.Product;itemId")
+/subsystem=resource-adapters/resource-adapter=productRA/connection-definitions=productDS/config-properties=CacheTypeMap:add(value="productCache:org.teiid.jdg.pojo.Product;itemid")
 /subsystem=resource-adapters/resource-adapter=productRA/connection-definitions=productDS/config-properties=Module:add(value="org.teiid.jdg.pojo")
 /subsystem=resource-adapters/resource-adapter=productRA/connection-definitions=productDS/config-properties=RemoteServerList:add(value="127.0.0.1:11322")
 /subsystem=resource-adapters/resource-adapter=productRA:activate
