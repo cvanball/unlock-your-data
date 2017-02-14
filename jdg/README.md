@@ -24,3 +24,5 @@ To configure the environment using Ansible one might change the default installa
 
 - Change files/xml/<installpath></installpath> value in files/xml/dv63_install.xml
 - Change install_home variable in group_vars/all.yml
+
+
