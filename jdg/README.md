@@ -19,3 +19,8 @@
 6. [JBoss Data Grid 6.6.1 Server Update](https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId=46451)
 7. [JDG 6.6.1 Hot Rod Java Client Module for JBoss EAP](https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId=46581)
 
+#### Using Ansible
+To configure the environment using Ansible one might change the default installation directory of Red Hat JBoss Data Grid and Red Hat JBoss Data Virtualization to accomodate your environment.
+
+- Change files/xml/<installpath></installpath> value in files/xml/dv63_install.xml
+- Change install_home variable in group_vars/all.yml
