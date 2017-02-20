@@ -1,4 +1,4 @@
-## Unlock your Red Hat JBoss Data Grid data with Red Hat JBoss Data Virtualization
+## Demystified - Using external materialized views in Red Hat JBoss Data Virtualization with Red Hat JBoss Data Grid
 
 ### Prerequisites
 

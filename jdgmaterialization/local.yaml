@@ -1,4 +1,4 @@
-- name: Unlock your data with Red Hat JBoss Data Virtualization using Red Hat JBoss Data Grid as datasource
+- name: Demystified - Using external materialized views in Red Hat JBoss Data Grid with Red Hat JBoss Data Virtualization
   hosts: localhost
   connection: local
   tasks: 
