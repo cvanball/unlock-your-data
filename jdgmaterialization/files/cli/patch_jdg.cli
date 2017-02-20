@@ -1,0 +1,1 @@
+patch apply binaries/jboss-datagrid-6.6.1-server-patch.zip
