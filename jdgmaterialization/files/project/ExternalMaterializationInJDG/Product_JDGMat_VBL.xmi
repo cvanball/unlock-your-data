@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:diagram="http://www.metamatrix.com/metamodels/Diagram" xmlns:mmcore="http://www.metamatrix.com/metamodels/Core" xmlns:relational="http://www.metamatrix.com/metamodels/Relational" xmlns:transformation="http://www.metamatrix.com/metamodels/Transformation">
+  <mmcore:ModelAnnotation xmi:uuid="mmuuid:a5bc12bc-0813-457f-be17-b0e0423e27db" primaryMetamodelUri="http://www.metamatrix.com/metamodels/Relational" modelType="VIRTUAL" ProducerName="Teiid Designer" ProducerVersion="11.0.1.Final-v20170208-2046-B4143">
+    <modelImports xmi:uuid="mmuuid:1f72a579-387b-4c78-a5e1-c08edbe807fc" name="ProductJDGSource" modelLocation="ProductJDGSource.xmi" uuid="mmuuid:4db2e634-c849-49c9-99ae-9c201c16c26a" modelType="PHYSICAL" primaryMetamodelUri="http://www.metamatrix.com/metamodels/Relational"/>
+    <modelImports xmi:uuid="mmuuid:7ae380f9-179d-478e-ac26-47c9e05a8264" name="Product_CSVFile_VBL" modelLocation="Product_CSVFile_VBL.xmi" uuid="mmuuid:114df759-f171-421e-9b11-0e48798976d1" modelType="VIRTUAL" primaryMetamodelUri="http://www.metamatrix.com/metamodels/Relational"/>
+    <modelImports xmi:uuid="mmuuid:35e996c0-1b93-4343-aa1d-cfebb27c997b" name="XMLSchema" modelLocation="http://www.w3.org/2001/XMLSchema" modelType="TYPE" primaryMetamodelUri="http://www.eclipse.org/xsd/2002/XSD"/>
+  </mmcore:ModelAnnotation>
+  <relational:BaseTable xmi:uuid="mmuuid:a402e350-2f61-424a-985c-6a614d9bc1fc" name="Product" supportsUpdate="false" materialized="true">
+    <columns xmi:uuid="mmuuid:9190fd45-7d73-4907-9023-3e66060eea63" name="itemid" length="10" defaultValue="" updateable="false" uniqueKeys="mmuuid/d38bc66e-e3f4-4b82-9cfb-b90f7e7468d9">
+      <type href="http://www.w3.org/2001/XMLSchema#long"/>
+    </columns>
+    <columns xmi:uuid="mmuuid:cd956417-863d-43bc-a2f7-f7f6c52e9838" name="name" length="4000" defaultValue="" updateable="false">
+      <type href="http://www.w3.org/2001/XMLSchema#string"/>
+    </columns>
+    <columns xmi:uuid="mmuuid:6e0151de-8cd3-40cc-a10f-9b7a95351b25" name="description" length="4000" defaultValue="" updateable="false">
+      <type href="http://www.w3.org/2001/XMLSchema#string"/>
+    </columns>
+    <columns xmi:uuid="mmuuid:3f268d4e-8ef4-4734-a7b8-83afd93dc367" name="price" length="10" defaultValue="" updateable="false">
+      <type href="http://www.w3.org/2001/XMLSchema#double"/>
+    </columns>
+    <materializedTable xsi:type="relational:BaseTable" href="ProductJDGSource.xmi#mmuuid/e16bbbc1-7fa1-411e-8b2c-34967a996208"/>
+    <primaryKey xmi:uuid="mmuuid:d38bc66e-e3f4-4b82-9cfb-b90f7e7468d9" name="itemid_PK" columns="mmuuid/9190fd45-7d73-4907-9023-3e66060eea63"/>
+  </relational:BaseTable>
+  <transformation:TransformationContainer xmi:uuid="mmuuid:6746f1b6-fa4b-4b86-acff-812253e346ef">
+    <transformationMappings xsi:type="transformation:SqlTransformationMappingRoot" xmi:uuid="mmuuid:6bc70a51-5c87-438a-8924-9f2c2245a1b7" outputs="mmuuid/a402e350-2f61-424a-985c-6a614d9bc1fc" target="mmuuid/a402e350-2f61-424a-985c-6a614d9bc1fc">
+      <helper xsi:type="transformation:SqlTransformation" xmi:uuid="mmuuid:a9427f18-fa0c-4e58-9cba-26b5535e6ab0">
+        <nested xsi:type="transformation:SqlTransformation" xmi:uuid="mmuuid:14757fc0-d65a-40af-a527-3c37f5445a17" selectSql="SELECT * FROM Product_CSVFile_VBL.Product"/>
+        <aliases xmi:uuid="mmuuid:b2467957-0e6f-4767-8b3e-ceace01d2701" alias="Product">
+          <aliasedObject href="Product_CSVFile_VBL.xmi#mmuuid/72b6adbd-3dd7-4a37-9b56-50a5fdaffac4"/>
+        </aliases>
+      </helper>
+      <nested xsi:type="transformation:TransformationMapping" xmi:uuid="mmuuid:a33a5870-2a70-4a47-a3b2-86cee26f0924" outputs="mmuuid/9190fd45-7d73-4907-9023-3e66060eea63">
+        <inputs href="Product_CSVFile_VBL.xmi#mmuuid/ae9d7069-c867-4f1a-8964-ec8ba0113731"/>
+      </nested>
+      <nested xsi:type="transformation:TransformationMapping" xmi:uuid="mmuuid:d9449696-763d-4798-ad19-5a85f601adbe" outputs="mmuuid/cd956417-863d-43bc-a2f7-f7f6c52e9838">
+        <inputs href="Product_CSVFile_VBL.xmi#mmuuid/3c7a3bfc-826f-4029-9b04-b15b51aabcbe"/>
+      </nested>
+      <nested xsi:type="transformation:TransformationMapping" xmi:uuid="mmuuid:6570950a-9386-449e-840b-2e089d767b35" outputs="mmuuid/6e0151de-8cd3-40cc-a10f-9b7a95351b25">
+        <inputs href="Product_CSVFile_VBL.xmi#mmuuid/7c528ada-1266-4e8b-a61a-311a9dd4f696"/>
+      </nested>
+      <nested xsi:type="transformation:TransformationMapping" xmi:uuid="mmuuid:2c27ac0f-226e-4fc4-970b-d6e7526ad73b" outputs="mmuuid/3f268d4e-8ef4-4734-a7b8-83afd93dc367">
+        <inputs href="Product_CSVFile_VBL.xmi#mmuuid/c3a2825d-8c3f-4049-84e5-e6ced4b707e7"/>
+      </nested>
+      <inputs href="Product_CSVFile_VBL.xmi#mmuuid/72b6adbd-3dd7-4a37-9b56-50a5fdaffac4"/>
+    </transformationMappings>
+  </transformation:TransformationContainer>
+  <mmcore:AnnotationContainer xmi:uuid="mmuuid:e8d8c9c5-8673-4dcb-9298-49ffae7acd54">
+    <annotations xmi:uuid="mmuuid:c449d1bc-b18e-4067-ab78-2064706ff227" annotatedObject="mmuuid/a402e350-2f61-424a-985c-6a614d9bc1fc">
+      <tags xmi:uuid="mmuuid:e9ccfd8a-6885-49ae-a1e6-63d28e82cb0f" key="relational:MATVIEW_AFTER_LOAD_SCRIPT" value="execute ProductJDGSource.native(''swap cache names'');"/>
+      <tags xmi:uuid="mmuuid:4a9557bb-ef55-489c-82fc-975f44a37172" key="relational:MATVIEW_BEFORE_LOAD_SCRIPT" value="execute ProductJDGSource.native(''truncate cache'');"/>
+      <tags xmi:uuid="mmuuid:c4aa3124-7198-48f6-8c3c-ac6156732672" key="relational:MATERIALIZED_STAGE_TABLE" value="ProductJDGSource.ST_Product"/>
+    </annotations>
+  </mmcore:AnnotationContainer>
+  <diagram:DiagramContainer xmi:uuid="mmuuid:e7e9f992-e8f8-424b-8293-e3876ccf9ee2">
+    <diagram xmi:uuid="mmuuid:beedf669-14b1-410e-8e2c-72334b57e4bf" type="packageDiagramType" target="mmuuid/a5bc12bc-0813-457f-be17-b0e0423e27db">
+      <diagramEntity xmi:uuid="mmuuid:89d87737-1524-49d7-923a-73043b59142e" modelObject="mmuuid/a402e350-2f61-424a-985c-6a614d9bc1fc" xPosition="10" yPosition="10"/>
+    </diagram>
+  </diagram:DiagramContainer>
+</xmi:XMI>

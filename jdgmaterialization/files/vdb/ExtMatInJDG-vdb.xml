@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<vdb name="ExtMatInJDG" version="1">
+<description/>
+<property name="validationDateTime" value="Fri Feb 24 12:11:51 CET 2017"/>
+<property name="validationVersion" value="8.12.9"/>
+<model name="Product_JDGMat_VBL" type="VIRTUAL">
+<property name="imports" value="Product"/>
+<metadata type="DDL"><![CDATA[
+
+CREATE VIEW Product (
+	itemid long OPTIONS(UPDATABLE 'FALSE'),
+	name string(4000) OPTIONS(UPDATABLE 'FALSE'),
+	description string(4000) OPTIONS(UPDATABLE 'FALSE'),
+	price double OPTIONS(UPDATABLE 'FALSE'),
+	CONSTRAINT itemid_PK PRIMARY KEY(itemid)
+) OPTIONS(MATERIALIZED 'TRUE', MATERIALIZED_TABLE 'ProductJDGSource.Product', "teiid_rel:MATVIEW_AFTER_LOAD_SCRIPT" 'execute ProductJDGSource.native(''swap cache names'');', "teiid_rel:MATVIEW_TTL" '60000', "teiid_rel:MATVIEW_BEFORE_LOAD_SCRIPT" 'execute ProductJDGSource.native(''truncate cache'');', "teiid_rel:MATVIEW_LOAD_SCRIPT" 'INSERT INTO ProductJDGSource.Product SELECT * FROM Product_CSVFile_VBL.Product', "teiid_rel:MATERIALIZED_STAGE_TABLE" 'ProductJDGSource.ST_Product') 
+AS
+	SELECT * FROM Product_CSVFile_VBL.Product;
+
+]]></metadata>
+</model>
+<model name="Product" visible="false">
+<source connection-jndi-name="java:/productdata-file" name="Product" translator-name="file"/>
+<metadata type="DDL"><![CDATA[
+
+CREATE FOREIGN PROCEDURE getTextFiles (
+	IN pathAndExt string(4000) NOT NULL
+) RETURNS
+	TABLE (
+		file clob,
+		filePath string(4000)
+) OPTIONS(UPDATECOUNT '1');
+
+]]></metadata>
+</model>
+<model name="ProductJDGSource">
+<source connection-jndi-name="java:/productDS" name="ProductJDGSource" translator-name="infinispan-cache-dsl"/>
+<metadata type="DDL"><![CDATA[
+SET NAMESPACE 'http://www.teiid.org/translator/object/2016' AS OBJECT_NS;
+
+
+CREATE FOREIGN TABLE Product (
+	itemid long,
+	name string(4000),
+	description string(4000),
+	price double,
+	CONSTRAINT itemid_PK PRIMARY KEY(itemid)
+) OPTIONS(UPDATABLE 'TRUE');
+
+CREATE FOREIGN TABLE ST_Product (
+	itemid long,
+	name string(4000),
+	description string(4000),
+	price double,
+	CONSTRAINT itemid_PK PRIMARY KEY(itemid)
+) OPTIONS(UPDATABLE 'TRUE', "OBJECT_NS:primary_table" 'ProductJDGSource.Product');
+
+]]></metadata>
+</model>
+<model name="Product_CSVFile_VBL" type="VIRTUAL">
+<property name="imports" value="Product"/>
+<metadata type="DDL"><![CDATA[
+
+CREATE VIEW Product (
+	itemid long OPTIONS(NAMEINSOURCE 'itemid', UPDATABLE 'FALSE'),
+	name string(4000) OPTIONS(NAMEINSOURCE 'name', UPDATABLE 'FALSE'),
+	description string(4000) OPTIONS(NAMEINSOURCE 'description', UPDATABLE 'FALSE'),
+	price double OPTIONS(NAMEINSOURCE 'price', UPDATABLE 'FALSE'),
+	CONSTRAINT itemid_PK PRIMARY KEY(itemid)
+) 
+AS
+	SELECT
+		A.itemid, A.name, A.description, A.price
+	FROM
+		(EXEC Product.getTextFiles('product-data.csv')) AS f, TEXTTABLE(f.file COLUMNS itemid long, name string, description string, price double HEADER) AS A;
+
+]]></metadata>
+</model>
+</vdb>

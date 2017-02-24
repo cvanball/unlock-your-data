@@ -12,9 +12,16 @@
     - name: "Install Red Hat JBoss Data Virtualization 6.3"
       shell: 'bash -c "java -jar binaries/jboss-dv-6.3.0-1-installer.jar {{ xml_dir }}/dv63_install.xml"'
       ignore_errors: no
-    - name: "Install Red Hat JBoss Data Virtualization Server 6.3.3 Update"
-      shell: 'bash -c "java -jar binaries/jboss-dv-6.3.3-patch.jar --server {{ jboss_home }} --update jboss-dv"'
+    - name: "Install Red Hat JBoss Data Virtualization Server 6.3.4 Update"
+      shell: 'bash -c "java -jar binaries/jboss-dv-6.3.4-patch.jar --server {{ jboss_home }} --update jboss-dv"'
       ignore_errors: no
+    - name: "Create $JDV_HOME/teiidfiles/data to {{ jboss_home }}/teiidfiles/data"
+      shell: 'bash -c "mkdir -p {{ jboss_home }}/teiidfiles/data"'
+      ignore_errors: no        
+    - name: "Copy product data csv file $JDV_HOME//teiidfiles/data"
+      copy: 
+        src: "files/csv/product-data.csv"
+        dest: "{{ jboss_home }}/teiidfiles/data"
     - name: "Unzip Red Hat JBoss Data Grid Hot Rod Java Client Module"
       unarchive: 
         src: "binaries/jboss-datagrid-6.6.1-eap-modules-remote-java-client.zip"
@@ -39,3 +46,9 @@
       copy:
         src: "{{ xml_dir }}/module.xml"
         dest: "{{ jboss_home }}/modules/system/layers/dv/org/jboss/teiid/resource-adapter/infinispan/dsl/main"
+    - name: "Copy ExtMatInJDG VDB to JDV deployments directory"
+      copy:
+        src: "{{ vdb_dir }}/ExtMatInJDG-vdb.xml"
+        dest: "{{ jboss_home }}/standalone/deployments"
+
+

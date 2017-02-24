@@ -12,9 +12,9 @@
 1. [JDK 1.8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
    * Ensure that **JAVA_HOME** environment variable is set
    * Ensure that **$JAVA_HOME/bin** is on the **PATH** so that you can run **java** on command line at prompt from any folder
-2. [JBoss Developer Studio 9.1.0](https://developers.redhat.com/download-manager/file/jboss-devstudio-9.1.0.GA-installer-eap.jar) 
+2. [JBoss Developer Studio 10.2.0](https://developers.redhat.com/download-manager/file/devstudio-10.2.0.GA-installer-eap.jar) with JBoss Data Virtualization Development installed
 3. [JBoss Data Virtualization 6.3.0](https://developers.redhat.com/download-manager/content/origin/files/sha256/b4/b466affbcc1740bf2c7c73b60bb6ffa7e1ec844fc08447224ab15aa3bcee3949/jboss-dv-6.3.0-1-installer.jar)
-4. [JBoss Data Virtualization Update 03](https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId=49111)
+4. [JBoss Data Virtualization Update 04](https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId=49801)
 5. [JBoss Data Grid 6.6 Server](https://developers.redhat.com/download-manager/file/jboss-datagrid-6.6.0-server.zip)
 6. [JBoss Data Grid 6.6.1 Server Update](https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId=46451)
 7. [JDG 6.6.1 Hot Rod Java Client Module for JBoss EAP](https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId=46581)

@@ -21,6 +21,7 @@ jboss_eap_instance_cli_port: "{{ jboss_eap_instance_cli_default_port|int + jboss
 # Local directory containing the used CLI files
 cli_dir: "{{ playbook_dir }}/files/cli"
 xml_dir: "{{ playbook_dir }}/files/xml"
+vdb_dir: "{{ playbook_dir }}/files/vdb"
 jdv_cli_list: { "configure_jdv.cli" }
 
 # =========== JBoss Data Grid variables ===========
