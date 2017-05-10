@@ -1,0 +1,1 @@
+/subsystem=datasources/jdbc-driver=impala:add(driver-name=impala,driver-module-name=com.cloudera.impala,driver-class-name=com.cloudera.impala.jdbc41.Driver,driver-xa-datasource-class-name=com.cloudera.impala.jdbc41.DataSource)

@@ -1,0 +1,2 @@
+data-source add --name=UnlockData_Cloudera_DS --jndi-name=java:/UnlockData_Cloudera_DS --connection-url=jdbc:impala://localhost:21050/unlockdata --driver-name=impala --user-name=cloudera_dev --password=cloudera_dev
+data-source enable --name=UnlockData_Cloudera_DS

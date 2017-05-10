@@ -1,0 +1,31 @@
+- name: Configure local JBoss Data Virtualization with Cloudera JDBC driver for Impala
+  hosts: localhost
+  connection: local
+  tasks: 
+    - name: Create JBoss module directory for the Cloudera JDBC driver for Impala
+      file: 
+        path: "{{ module_path }}"
+        state: directory
+    - name: Download and Unarchive the Cloudera JDBC zip file
+      unarchive:
+        src: "{{ jdbc_zip_url }}"
+        dest: "{{ module_path }}"
+        remote_src: yes
+    - name: Unarchive the Sub Cloudera JDBC zip file
+      unarchive:
+        src: "{{ module_path }}/{{ jdbc_dir_name }}/{{ jdbc_sub_dir_name }}.zip"
+        dest: "{{ module_path }}"
+        remote_src: no
+    - name: Remove Cloudera JDBC unarchived directory
+      file:
+        path: "{{ module_path }}/{{ jdbc_dir_name }}"
+        state: absent
+    - name: Copy module.xml into JBoss modules directory
+      copy: 
+        src: "{{ xml_dir }}/module.xml"
+        dest: "{{ module_path }}"
+    - name: "Execute Management CLI file(s)"
+      shell: 'bash -c "nohup {{ jboss_home }}/bin/standalone.sh -c {{ jboss_eap_instance_standalone_file }} -Djboss.socket.binding.port-offset={{ jboss_eap_instance_port_offset }} -Djboss.management.native.port={{ jboss_eap_instance_cli_default_port }} -Djboss.server.base.dir={{ jboss_eap_instance_dir }} --admin-only & " && sleep {{ cli_timeout }} && {{ jboss_home }}/bin/jboss-cli.sh -c --controller=127.0.0.1:{{ jboss_eap_instance_cli_port }} --file="{{ cli_dir }}/{{ item | basename }}" && pkill -TERM -f "java(.*){{ jboss_eap_instance_dir }}"'
+      with_items: "{{ cli_list }}"
+      ignore_errors: no
+      

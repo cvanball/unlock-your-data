@@ -10,6 +10,7 @@ This project is an example showing how to configure a Red Hat JBoss Data Virtual
 ### Available playbooks
 
 * [Hortonworks Hive JDBC](https://github.com/cvanball/unlock-your-data/tree/master/hdphive2)
+* [Cloudera Impala JDBC](https://github.com/cvanball/unlock-your-data/tree/master/cloudera)
 * [Red Hat JBoss Data Grid](https://github.com/cvanball/unlock-your-data/tree/master/jdg)
 * [MariaDB/MySQL JDBC](https://github.com/cvanball/unlock-your-data/tree/master/mariadb_mysql)
 * [Microsoft Excel](https://github.com/cvanball/unlock-your-data/tree/master/msexcel)
